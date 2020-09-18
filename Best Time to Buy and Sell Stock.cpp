@@ -41,3 +41,46 @@ public:
         return ans;
     }
 };
+
+
+
+
+DP solution:
+
+
+
+class Solution {
+    private:
+    int calc(vector<int> &prices,int n,int i,int f,vector<vector<int>> &dp)
+    {   
+        if(i==n)
+            return 0;
+        
+        if(dp[i][f]!=-1)
+            return dp[i][f];
+        
+        int ans=calc(prices,n,i+1,f,dp);
+        if(f==0)
+        {
+            ans = max(ans,-prices[i] + calc(prices,n,i+1,1,dp));  
+        }
+        else if(f==1)
+        {
+            ans = max(ans,prices[i]);
+        }
+        
+        return dp[i][f]=ans;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int i,n,ans;
+        n=prices.size();
+        
+        vector<vector<int>> dp(n,vector<int>(2,-1));
+        ans=calc(prices,n,0,0,dp);
+        
+        return ans;
+        
+    }
+};
