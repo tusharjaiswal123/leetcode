@@ -34,18 +34,15 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
         
-        int i,n,t_ik0=0,t_ik1=INT_MIN;
-        n=prices.size();
+        int n,i,buy=INT_MIN,sell=0;
+        n = prices.size();
         
         for(i=0;i<n;i++)
         {
-            int t_ik0_old=t_ik0;
-            
-            t_ik0=max(t_ik0,t_ik1+prices[i]);
-            t_ik1=max(t_ik1,t_ik0_old-prices[i]-fee);
+            buy = max(buy,sell-prices[i]);
+            sell = max(sell,buy+prices[i]-fee);
         }
         
-        return t_ik0;
-        
+        return sell;
     }
 };
