@@ -22,32 +22,34 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         
-        int i,n,j;
-        n=nums.size();
+        int i,idx1=-1,idx2,n;
+        n = nums.size();
         
         for(i=n-2;i>=0;i--)
         {
-            if(nums[i] < nums[i+1])
+            if(nums[i]<nums[i+1])
+            {
+                idx1=i;
                 break;
-                
+            }
         }
         
-        if(i<0)
+        if(idx1==-1)
         {
             reverse(nums.begin(),nums.end());
+            return;
         }
         
-        else
+        for(i=n-1;i>=0;i--)
         {
-            for(j=n-1;j>i;j--)
+            if(nums[i]>nums[idx1])
             {
-                if(nums[j]>nums[i])
-                    break;
+                idx2=i;
+                break;
             }
-            
-            swap(nums[j],nums[i]);
-            reverse(nums.begin() + i + 1,nums.end());
         }
         
+        swap(nums[idx1],nums[idx2]);
+        reverse(nums.begin()+idx1+1,nums.end());
     }
 };
